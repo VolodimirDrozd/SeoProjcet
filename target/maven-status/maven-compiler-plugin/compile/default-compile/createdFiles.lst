@@ -1,0 +1,13 @@
+com\okhelps\seo\entity\Category.class
+com\okhelps\seo\api\SeoApi$API.class
+com\okhelps\seo\configuration\SpringMongoConfig.class
+com\okhelps\seo\services\ProjectService.class
+com\okhelps\seo\bean\CategoryResponse.class
+com\okhelps\seo\configuration\SpringConfig.class
+com\okhelps\seo\api\SeoApi.class
+com\okhelps\seo\configuration\SpringWebConfig.class
+com\okhelps\seo\controller\SeoDataController.class
+com\okhelps\seo\controller\SynchronizedController.class
+com\okhelps\seo\entity\Project.class
+com\okhelps\seo\bean\ProjectResponse.class
+com\okhelps\seo\configuration\AppInitializer.class
