@@ -53,6 +53,8 @@ public class ProjectService
 
     public List<Category> getAllCategories(List<Project> projectList)
     {
+        try
+        {
         List<Category> category = new ArrayList<>();
         for (int i = 0; i < projectList.size(); i++)
         {
@@ -63,6 +65,11 @@ public class ProjectService
             }
         }
         return category;
+        } catch (Exception e)
+        {
+            logger.error("This is Error message", e);
+        }
+        return new ArrayList<Category>();
     }
 
     public void saveListProjects(List<Project> listProjects)
@@ -93,7 +100,7 @@ public class ProjectService
                 }
             } catch (IOException e)
             {
-                e.printStackTrace();
+                logger.error("This is Error message", e);
             }
 
         }

@@ -9,6 +9,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.query.BasicQuery;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -59,14 +60,14 @@ public class TestProjectServise
         Assert.assertNotNull(allCategories.size());
     }
 
-    //    @Test
-    //    public void saveListProjects()
-    //    {
-    //        listProject = projectService.getProjects();
-    //        projectService.saveListProjects(listProject);
-    //        BasicQuery queryProjectId = new BasicQuery("{id:23}");
-    //        mongoTemplate.findOne(queryProjectId, Project.class);
-    //    }
+    @Test
+    public void saveListProjects()
+    {
+        projectService.saveListProjects(listProject);
+
+        BasicQuery queryProjectId = new BasicQuery("{id:23}");
+        mongoTemplate.findOne(queryProjectId, Project.class);
+    }
     //
     //    @Test
     //    public void saveCategories()
