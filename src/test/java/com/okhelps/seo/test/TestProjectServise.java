@@ -8,6 +8,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -18,53 +19,62 @@ import com.okhelps.seo.entity.Project;
 import com.okhelps.seo.services.ProjectService;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = { SpringConfig.class, SpringMongoConfig.class })
-public class TestProjectServise {
+@ContextConfiguration(classes =
+{
+        SpringConfig.class, SpringMongoConfig.class
+})
+public class TestProjectServise
+{
 
-	@Autowired
-	ProjectService projectService;
+    @Autowired
+    ProjectService projectService;
 
-	private List<Project> listProject ;
-	private List<Category> listCategories ;
-	private List<Category> allCategories;
+    @Autowired
+    MongoTemplate mongoTemplate;
 
-	@Test
-	public void getProjects() throws IOException {
-		listProject = projectService.getProjects();
-		Assert.assertNotNull(listProject);
-	}
+    private List<Project> listProject;
+    private List<Category> listCategories;
+    private List<Category> allCategories;
 
-	@Test
-	public void getCategories() throws IOException {
-		this.listCategories = projectService.getCategories(listProject.get(0)
-				.getId());
-		Assert.assertNotNull(listCategories);
-	}
+    @Before
+    public void testGetterProjects() throws IOException
+    {
+        listProject = projectService.getProjects();
+        projectService.setProjectIdCategories();
+        Assert.assertNotNull(listProject);
 
-	@Test
-	public void getAllCategories() throws IOException {
-		allCategories = projectService.getAllCategories(listProject);
-		Assert.assertNotNull(allCategories);
-	}
+    }
 
-	@Test
-	public void differentSizeAboutReturnCategoriesMethods() throws IOException {
-		Assert.assertTrue(allCategories.size() > listCategories.size());
-	}
+    @Test
+    public void testSetterProjectIdCategories() throws IOException
+    {
+        listCategories = projectService.getCategories(listProject.get(0).getId());
+        Assert.assertNotNull(listCategories.get(0).getId());
+    }
 
-//	@Test
-//	public void saveListProjects() {
-//		listProject = projectService.getProjects();
-//	projectService.saveListProjects(listProject);
-	
-//	}
+    @Test
+    public void testGetterAllCategories()
+    {
+        allCategories = projectService.getAllCategories(listProject);
+        Assert.assertNotNull(allCategories.size());
+    }
 
-	@Test
-	public void saveCategories() {
-		listCategories = projectService.getCategories(listProject.get(0)
-				.getId());
-		projectService.saveListCategories(listCategories);
-		// mongoTemplate.getCollection(collectionName)
-	}
-	
+    //    @Test
+    //    public void saveListProjects()
+    //    {
+    //        listProject = projectService.getProjects();
+    //        projectService.saveListProjects(listProject);
+    //        BasicQuery queryProjectId = new BasicQuery("{id:23}");
+    //        mongoTemplate.findOne(queryProjectId, Project.class);
+    //    }
+    //
+    //    @Test
+    //    public void saveCategories()
+    //    {
+    //        listCategories = projectService.getCategories(listProject.get(0).getId());
+    //        projectService.saveListCategories(listCategories);
+    //        BasicQuery queryProjectId = new BasicQuery("{id:23}");
+    //        mongoTemplate.findOne(queryProjectId, Project.class);
+    //    }
+
 }

@@ -11,19 +11,20 @@ import com.okhelps.seo.entity.Project;
 import com.okhelps.seo.services.ProjectService;
 
 @RequestMapping(name = "/synchronize")
-public class SynchronizedController {
+public class SynchronizedController
+{
 
-	@Autowired
-	ProjectService projectService;
+    @Autowired
+    ProjectService projectService;
 
-	@RequestMapping(method = RequestMethod.GET)
-	public void updateProjectData() {
-		List<Project> listProjects = projectService.getProjects();
-		List<Category> listCategories = projectService
-				.getAllCategories(listProjects);
-		projectService.saveListCategories(listCategories);
-		for (int i = 0; i <= listProjects.size(); i++)
-			projectService.saveListProjects(listProjects);
+    @RequestMapping(method = RequestMethod.GET)
+    public void updateProjectData()
+    {
+        List<Project> listProjects = projectService.getProjects();
+        projectService.setProjectIdCategories();
+        List<Category> listCategories = projectService.getAllCategories(listProjects);
+        projectService.saveListProjects(listProjects);
+        projectService.saveListCategories(listCategories);
 
-	}
+    }
 }
